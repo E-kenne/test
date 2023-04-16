@@ -1,0 +1,52 @@
+  .topnav {
+    overflow: hidden;
+    font-weight:bold;
+  }
+  
+  .topnav a{
+    float: left;
+    color: #ddd;
+    text-align: center;
+    padding: 4px 16px;
+    font-size: 28px;
+  }
+
+  .topnav a.right-align{
+    float: right;
+    color: #ddd;
+    text-align: center;
+    padding: 4px 16px;
+    font-size: 28px;
+  }  
+  
+  .topnav a.link:hover {
+    background-color: #0e19af;
+    color:grey;
+  }
+
+
+  #listing {
+    overflow-y: scroll;
+    max-height: 600px;
+   
+  }
+  .plist {
+    margin-top:10px;
+    width: 25%;
+    float: left;
+    margin-left: 20px;
+    height: 40px;
+  }  
+
+  .frame {
+    margin-top:10px;
+    height: 600px;
+    width: 50%;
+    float: right;
+    margin-right: 20px;
+  }
+
+  
+
+  
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>LECI</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+  <body  onload="getListing()">
+    
+    <nav>
+      <div class="topnav green">
+        <a>Poke Dextr</a>
+        <a href="index.html" class="right-align link">Listing</a>
+      </div>
+    </nav> 
+
+    <main>
+        
+      <div class="plist">
+
+        <div class="list" id="listing">
+
+        </div>
+
+      </div>
+       
+      <div class="col">
+
+        <div class="frame">
+          <table class="table text-center">
+
+            <tbody id="result">
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+      
+    </main>
+
+    <script>
+
+
+//given a pokemon name performs an ajax requests querying the pokemon's data and pass it to displayPokemon()
+        async function getPokemon(pokemonName){
+          
+          try{
+            let response = await fetch("https://pokeapi.co/api/v2/pokemon/" + pokemonName);
+            let result = await response.json();
+            displayPokemon(result);
+          }catch(e){
+              console.log(e);
+          }
+        }
+
+
+//performs an ajax request to the spcified url to get pokemon data then pass it to displayListing()
+        async function getListing(){
+          
+          try{
+            let response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=50&offset=50");
+            let result = await response.json();
+            displayListing(result.results);
+          }catch(e){
+              console.log(e);
+          }
+        
+        }
+
+
+        //Renders a list of pokemon links to the page
+        function displayListing(records){
+
+          let result = document.getElementById('listing');
+
+          for(let record of records){
+            result.innerHTML += `<a href="#" onclick="getPokemon('${record.name}')"
+             class="collection-item list-group-item list-group-item-action" 
+             id="${record.name}">${record.name}</a>`;
+
+          }  
+
+        }
+
+        
+        //renders details of the specified pokemon onto the page
+        function displayPokemon(pokemon){
+          let result = document.querySelector('#result');
+          result.innerHTML = `
+            <tr><img class="w-50 h-50" src="${pokemon.sprites.front_default}" alt="Image"></tr>
+            <tr><b>ID: </b>${pokemon.id}</tr>
+            <tr><b>NAME: </b>${pokemon.name}</tr>
+            <tr><b>TYPE: </b>${pokemon.types[0].type.name}</tr>
+            <tr><b>WEIGHT: </b>${pokemon.weight}</tr>
+            <tr><b>HEIGHT: </b>${pokemon.height}</tr>
+          `;
+        }
+
+    </script>
+         </body>
+</html>
